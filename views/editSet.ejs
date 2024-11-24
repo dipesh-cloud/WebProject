@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Set</title>
+    <link href="/css/main.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #fdfdfd;
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        input[readonly] {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
+
+        button {
+            display: inline-block;
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-cancel {
+            background-color: #dc3545;
+            margin-top: 0.5rem;
+        }
+
+        .btn-cancel:hover {
+            background-color: #a71d2a;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            button {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar', { page: '' }) %>
+
+    <h1>Edit Set: <%= set.name %></h1>
+
+    <div class="container">
+        <form action="/lego/editSet" method="POST">
+            <input type="hidden" name="set_num" value="<%= set.set_num %>">
+            
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<%= set.name %>" required>
+            
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" value="<%= set.year %>" required>
+            
+            <label for="num_parts">Number of Parts:</label>
+            <input type="number" id="num_parts" name="num_parts" value="<%= set.num_parts %>" required>
+            
+            <label for="img_url">Image URL:</label>
+            <input type="url" id="img_url" name="img_url" value="<%= set.img_url %>" required>
+            
+            <label for="theme_id">Theme:</label>
+            <select id="theme_id" name="theme_id" required>
+                <% themes.forEach(theme => { %>
+                    <option value="<%= theme.id %>" <%= (set.theme_id == theme.id) ? "selected" : "" %>>
+                        <%= theme.name %>
+                    </option>
+                <% }) %>
+            </select>
+            
+            <label for="set_num">Set Number:</label>
+            <input type="text" id="set_num" name="set_num" value="<%= set.set_num %>" readonly>
+            
+            <button type="submit">Update Set</button>
+            <button type="butt<!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Edit Set</title>
+                    <link href="/css/main.css" rel="stylesheet">
+                    <style>
+                        /* General Styles */
+                        body {
+                            font-family: 'Arial', sans-serif;
+                            margin: 0;
+                            padding: 0;
+                            background-color: #f3f4f6;
+                            color: #333;
+                        }
+                
+                        h1 {
+                            text-align: center;
+                            margin-top: 1.5rem;
+                            color: #2c3e50;
+                        }
+                
+                        .container {
+                            max-width: 800px;
+                            margin: 2rem auto;
+                            padding: 1.5rem;
+                            background-color: #fff;
+                            border-radius: 8px;
+                            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                        }
+                
+                        label {
+                            display: block;
+                            margin-bottom: 0.5rem;
+                            font-weight: bold;
+                            color: #555;
+                        }
+                
+                        input, select {
+                            width: 100%;
+                            padding: 0.8rem;
+                            margin-bottom: 1rem;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                            font-size: 1rem;
+                            background-color: #fdfdfd;
+                            color: #333;
+                            box-sizing: border-box;
+                        }
+                
+                        input[readonly] {
+                            background-color: #e9ecef;
+                            cursor: not-allowed;
+                        }
+                
+                        button {
+                            display: inline-block;
+                            width: 100%;
+                            padding: 0.8rem;
+                            margin-top: 1rem;
+                            border: none;
+                            border-radius: 4px;
+                            font-size: 1rem;
+                            font-weight: bold;
+                            cursor: pointer;
+                            color: #fff;
+                            transition: background-color 0.3s ease;
+                        }
+                
+                        button[type="submit"] {
+                            background-color: #007bff;
+                        }
+                
+                        button[type="submit"]:hover {
+                            background-color: #0056b3;
+                        }
+                
+                        .btn-cancel {
+                            background-color: #dc3545;
+                            margin-top: 0.5rem;
+                        }
+                
+                        .btn-cancel:hover {
+                            background-color: #a71d2a;
+                        }
+                
+                        @media (max-width: 768px) {
+                            .container {
+                                padding: 1rem;
+                            }
+                
+                            button {
+                                width: 100%;
+                                margin: 0.5rem 0;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <%- include('partials/navbar', { page: '' }) %>
+                
+                    <h1>Edit Set: <%= set.name %></h1>
+                
+                    <div class="container">
+                        <form action="/lego/editSet" method="POST">
+                            <input type="hidden" name="set_num" value="<%= set.set_num %>">
+                            
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" value="<%= set.name %>" required>
+                            
+                            <label for="year">Year:</label>
+                            <input type="number" id="year" name="year" value="<%= set.year %>" required>
+                            
+                            <label for="num_parts">Number of Parts:</label>
+                            <input type="number" id="num_parts" name="num_parts" value="<%= set.num_parts %>" required>
+                            
+                            <label for="img_url">Image URL:</label>
+                            <input type="url" id="img_url" name="img_url" value="<%= set.img_url %>" required>
+                            
+                            <label for="theme_id">Theme:</label>
+                            <select id="theme_id" name="theme_id" required>
+                                <% themes.forEach(theme => { %>
+                                    <option value="<%= theme.id %>" <%= (set.theme_id == theme.id) ? "selected" : "" %>>
+                                        <%= theme.name %>
+                                    </option>
+                                <% }) %>
+                            </select>
+                            
+                            <label for="set_num">Set Number:</label>
+                            <input type="text" id="set_num" name="set_num" value="<%= set.set_num %>" readonly>
+                            
+                            <button type="submit">Update Set</button>
+                            <button type="button" class="btn-cancel" onclick="window.location.href='/lego/sets'">Cancel</button>
+                        </form>
+                    </div>
+                </body>
+                </html>
+                on" class="btn-cancel" onclick="window.location.href='/lego/sets'">Cancel</button>
+        </form>
+    </div>
+</body>
+</html>

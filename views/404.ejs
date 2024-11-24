@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found </title>
+    <link href="/css/main.css" rel="stylesheet">
+</head>
+<body>
+    <!-- //class="bg-gray-100 min-h-screen flex flex-col" -->
+    <!-- Navbar (Using partial include) -->
+    <%- include('partials/navbar', { page: '' }) %>
+    <!-- <nav class="bg-white shadow">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="/" class="text-2xl font-bold">Lego Collection</a>
+                <div class="space-x-4">
+                    <a href="/about" class="hover:text-blue-500">About</a>
+                </div>
+            </div>
+        </div>
+    </nav> -->
+
+
+    <section class="flex-grow">
+        <div class="container mx-auto px-4 text-center">
+            <div class="bg-gray-700 text-white rounded-lg py-20 mt-4">
+                <h1 class="text-6xl font-bold">404 - Page Not Found</h1>
+                <p class="mt-4 text-lg">Sorry, we couldn't find the page you were looking for.</p>
+                <p class="mt-2 text-gray-200">
+                    <%= message || "It might have been moved or deleted. Please check the URL or go back to the homepage." %>
+                </p>
+                <div class="mt-6 space-x-4">
+                    <a href="/" class="inline-block bg-white text-gray-300 rounded-lg px-6 py-2 hover:bg-gray-100 transition">
+                        Go Back Home
+                    </a>
+                    <a href="/lego/sets" class="inline-block bg-white text-gray-300 rounded-lg px-6 py-2 hover:bg-gray-100 transition">
+                        Go Back
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-10">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Lego Collection. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dropdown functionality
+        const dropdown = document.querySelector('.dropdown');
+        dropdown.addEventListener('click', () => {
+            const dropdownContent = dropdown.querySelector('.dropdown-content');
+            dropdownContent.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
+
+</body>
+</html>

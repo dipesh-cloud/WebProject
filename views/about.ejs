@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link href="/css/main.css" rel="stylesheet">
+</head>
+<body class="bg-gray-800">
+    
+    <!-- Navbar (Using partial include) -->
+    <%- include('partials/navbar', { page: '/about' }) %>
+    <!-- <nav class="bg-gray-800 text-white p-4">
+        <div class="container mx-auto flex justify-between">
+            <a href="/" class="text-2xl font-bold">Lego Collection</a>
+            <div class="flex space-x-4">
+                <a href="/about" class="active hover:underline">About</a>
+                <div class="dropdown relative">
+                    <summary class="cursor-pointer">Theme</summary>
+                    <ul class="dropdown-content absolute hidden bg-gray-700 mt-2 p-2 space-y-2">
+                        <li><a href="/lego/sets?theme=technic" class="hover:underline">Technic</a></li>
+                        <li><a href="/lego/sets?theme=star-wars" class="hover:underline">Star Wars</a></li>
+                        <li><a href="/lego/sets?theme=city" class="hover:underline">City</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav> -->
+
+
+    <section class="hero container bg-gray-200 mx-auto mt-10">
+        <div class="text-center bg-gray-300 p-10 rounded-lg shadow-lg">
+            <h2 class="text-5xl font-bold">About Me</h2>
+            <p class="mt-4 text-lg">Learn more about my journey and interests.</p>
+        </div>
+    </section>
+    
+
+  <!--Content section-->
+    <section class=" mx-auto py-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <img src="https://images.unsplash.com/photo-1727775909609-7cf324b9a46d?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="About Me" class="w-full h-auto rounded-lg shadow-lg">
+        </div>
+        <div class="flex flex-col justify-center pl-4 text-gray-50">
+            <h2 class="text-3xl owner_name font-bold">Hello, I'm Dipesh Shah Baniya!</h2>
+            <p class="mt-4 text-lg owner_name">
+                I'm passionate about coding and enjoy creating web applications. Currently, I'm enrolled in a computer programming diploma, working on enhancing my skills through various online courses. In my free time, I love singing and dancing.
+            </p>
+            <p class="mt-4 text-lg owner_name">
+                At the moment, I'm working on a Web project about the Lego collection. This project has been an exciting journey, introducing me to new concepts while exploring the fascinating world of Lego sets.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-10">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Lego Collection. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dropdown functionality
+        const dropdown = document.querySelector('.dropdown');
+        dropdown.addEventListener('click', () => {
+            const dropdownContent = dropdown.querySelector('.dropdown-content');
+            dropdownContent.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
+
+</body>
+</html>

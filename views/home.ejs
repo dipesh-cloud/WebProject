@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lego Collection</title>
+    <link href="/css/main.css" rel="stylesheet">
+</head>
+<body class="bg-gray-800 text-color-gray-200 min-h-screen flex flex-col">
+
+    <!-- Navbar (Using partial include) -->
+    <%- include('partials/navbar', { page: '/' }) %>
+
+    <!-- Navbar -->
+    <!-- <nav class="bg-white shadow">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold">Lego Collection</a>
+            <div class="flex space-x-4">
+                <a href="/about" class="hover:text-blue-500">About</a>
+                <div class="relative inline-block text-left">
+                    <button class="cursor-pointer">
+                        Theme
+                    </button>
+                    <ul class="dropdown-content absolute hidden bg-gray-700 mt-2 p-2 space-y-2">
+                        <li><a href="/lego/sets?theme=technic" class="hover:underline">Technic</a></li>
+                        <li><a href="/lego/sets?theme=star-wars" class="hover:underline">Marvel Avengers</a></li>
+                        <li><a href="/lego/sets?theme=city" class="hover:underline">City</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav> -->
+
+    <!-- Hero Section -->
+    <section class="hero container mx-auto mt-10">
+        <div class="text-center bg-gray-200 p-10 rounded-lg">
+        <h1 class="text-5xl font-bold">Welcome the Lego Collection</h1>
+        <p class="mt-4 text-lg">See our beauty of Lego sets and themes.</p>
+        <a href="/lego/sets" class="btn view_btn btn-primary mt-6 bg-white text-black rounded-lg px-4 py-2">View Sets</a>
+    </section>
+
+    <!-- Lego Sets Cards -->
+    <section class="container mx-auto mt-10 grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+        <!-- Lego Set Card 1 -->
+        <div class="card border rounded-lg overflow-hidden shadow-lg">
+            <img src="https://cdn.rebrickable.com/media/sets/31090-1.jpg" alt="Lego Set 1" class="w-full h-64 object-cover">
+            <div class="p-4">
+                <h2 class="text-xl font-bold">Lego Set Name 1</h2>
+                <p class="mt-2">It's part of the Technic theme of Lego Set 1.</p>
+                <a href="/lego/sets/31090-1" class="mt-4 inline-block bg-gray-200 link_btn text-black rounded-lg px-4 py-2 hover:bg-gray-300 transition">
+                    View Details
+                </a>
+            </div>
+        </div>
+
+            <!-- Lego Set Card 2 -->
+             <div class="card border rounded-lg overflow-hidden shadow-lg">
+            <img src="https://cdn.rebrickable.com/media/sets/1000565740-1.jpg" alt="Lego Set 2" class="w-full h-64 object-cover">
+            <div class="p-4">
+                <h2 class="text-xl font-bold">Lego Set Name 2</h2>
+                <p class="mt-2">It's part of the Marvel Avengers theme of Lego Set 2.</p>
+                <a href="/lego/sets/1000565740-1" class="mt-4 inline-block bg-white link_btn text-black rounded-lg px-4 py-2 hover:bg-white transition">
+                    View Details
+                </a>
+            </div>
+        </div>
+
+            <!-- Lego Set Card 3 -->
+            <div class="card border rounded-lg overflow-hidden shadow-lg">
+                <img src="https://cdn.rebrickable.com/media/sets/31097-1.jpg" alt="Lego Set 3" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h2 class="text-xl font-bold">Lego Set Name 3</h2>
+                    <p class="mt-2">It's part of the City theme of Lego Set 3.</p>
+                    <a href="/lego/sets/31097-1" class="mt-4 inline-block bg-white link_btn text-black rounded-lg px-4 py-2 hover:bg-gray-300 transition">
+                        View Details
+                    </a>
+                </div>
+            </div>
+    </section>
+
+    <script>
+        
+        // Remove the dropdown functionality since the theme dropdown was removed
+    </script>
+    </script>
+    <footer class="bg-gray-800 text-white p-4 mt-10">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Lego Collection. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

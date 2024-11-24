@@ -1,0 +1,19 @@
+<nav class="bg-gray-700 min-h-screen flex flex-col">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold text-gray-200">Lego Collection</a>
+        <div class="flex space-x-4">
+            <li><a class=" text-gray-200 hover:underline menu <%= (page == '/lego/sets') ? 'active' : '' %>" href="/lego/sets ">View Collection</a></li>
+            <a class=" text-gray-200 hover:underline menu <%= (page == '/about') ? 'active' : '' %>" href="/about">About</a>
+            <div class="relative inline-block text-left">
+                <a class="cursor-pointer text-gray-200 hover:underline menu">
+                    Theme
+                </a>
+                <ul class="dropdown-content absolute hidden text-gray-200 mt-2 p-2 space-y-2">
+                    <li><a href="/lego/sets?theme=technic" class="hover:underline ">Technic</a></li>
+                    <li><a href="/lego/sets?theme=star-wars" class="hover:underline">Marvel Avengers</a></li>
+                    <li><a href="/lego/sets?theme=city" class="hover:underline">City</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

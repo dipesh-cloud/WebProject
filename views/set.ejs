@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= set.name %></title>
+    <link href="/css/main.css" rel="stylesheet">
+    <style>
+        .flex-grow{
+           max-width: 600px; 
+           margin: 20px auto; 
+           padding: 24px; 
+           background-color: #f9f9f9; 
+           border-radius: 12px; 
+           box-shadow: 0 2px 5px rgba(58, 2, 20, 0.1);
+        }
+        .flex-grow{
+            max-width: 100%;
+            height:auto;
+            border-radius: 5px;
+        }
+
+        .flex-grow h2 {
+            margin-top: 16px;
+        }
+
+        .flex-grow ul {
+            list-style-type: none;
+            padding: 0;
+
+        }
+        .flex-grow li {
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar (Using partial include) -->
+    <%- include('partials/navbar', { page: '' }) %>
+
+    <section class="hero bg-gray-100 p-6">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl font-bold"><%= set.name %></h1>
+            <p class="mt-2 text-lg">Below, you will find detailed information about the set: <%= set.name %></p>
+        </div>
+    </section>
+    
+    <section class="flex-grow">
+        <div class="container mx-auto px-4 text-center">
+            <img src="<%= set.img_url %>" alt="<%= set.name %>" />
+            <h2 class="text-2xl font-semibold">Details</h2>
+            <ul>
+                <li><strong>Year Released:</strong> <%= set.year %></li>
+            <li><strong>Theme:</strong> <%= set.theme %></li>
+            <li><strong>Number of Parts:</strong> <%= set.num_parts %></li>
+            </ul>
+            <div id="quote"></div>
+        <button onclick="history.back(); return false;">Go Back</button>
+    </div>
+
+     <!-- Footer -->
+     <footer class="bg-gray-800 text-white p-4 mt-10">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Lego Collection. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch("https://quotable.io/random")
+                .then(response => response.json())
+                .then(data => {
+                    const quoteElement = document.getElementById("quote");
+                    quoteElement.innerHTML = `<q>${data.content}</q> - <strong>${data.author}</strong>`;
+                })
+                .catch(error => {
+                    console.error('Error fetching quote:', error);
+                });
+        });
+    </script>
+
+
+    </section>
+</body>
+</html>

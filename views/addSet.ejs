@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Set</title>
+    <link href="/css/main.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 1.5rem 0;
+            font-size: 2.5rem;
+            color: #444;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background-color: #007bff;
+            padding: 0.8rem 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Form Styles */
+        form {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        form input,
+        form select {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        form input:focus,
+        form select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        form button {
+            display: inline-block;
+            width: 48%;
+            padding: 0.8rem;
+            margin: 0.5rem 1%;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #fff;
+            background-color: #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        form .btn-cancel {
+            background-color: #dc3545;
+        }
+
+        form .btn-cancel:hover {
+            background-color: #a71d2a;
+        }
+
+        @media (max-width: 768px) {
+            form button {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+
+        /* Theme Select Style */
+        form select {
+            appearance: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23333' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 1rem center;
+            background-color: #fff;
+            background-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="/lego/addSet" class="active">Add Set</a>
+    </nav>
+
+    <div class="container">
+        <h1>Add a New Lego Set</h1>
+        <form action="/lego/addSet" method="POST">
+            <div>
+                <label for="name">Set Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter set name" required>
+            </div>
+            <div>
+                <label for="year">Year of Release</label>
+                <input type="number" id="year" name="year" placeholder="Enter release year" required>
+            </div>
+            <div>
+                <label for="num_parts">Number of Parts</label>
+                <input type="number" id="num_parts" name="num_parts" placeholder="Enter number of parts" required>
+            </div>
+            <div>
+                <label for="img_url">Image URL</label>
+                <input type="url" id="img_url" name="img_url" placeholder="Enter image URL" required>
+            </div>
+            <div>
+                <label for="theme_id">Theme</label>
+                <select id="theme_id" name="theme_id" required>
+                    <% themes.forEach(theme => { %>
+                        <option value="<%= theme.id %>"><%= theme.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div>
+                <label for="set_num">Set Number</label>
+                <input type="text" id="set_num" name="set_num" placeholder="Enter set number" required>
+            </div>
+            <div>
+                <button type="submit">Add Set</button>
+                <button type="button" class="btn-cancel" onclick="window.history.back()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
