@@ -1,19 +1,72 @@
-<nav class="bg-gray-700 min-h-screen flex flex-col">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+<nav class="bg-gray-700 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Brand -->
         <a href="/" class="text-2xl font-bold text-gray-200">Lego Collection</a>
-        <div class="flex space-x-4">
-            <li><a class=" text-gray-200 hover:underline menu <%= (page == '/lego/sets') ? 'active' : '' %>" href="/lego/sets ">View Collection</a></li>
-            <a class=" text-gray-200 hover:underline menu <%= (page == '/about') ? 'active' : '' %>" href="/about">About</a>
-            <div class="relative inline-block text-left">
-                <a class="cursor-pointer text-gray-200 hover:underline menu">
+
+        <!-- Menu -->
+        <ul class="flex space-x-4 items-center">
+            <!-- View Collection -->
+            <li>
+                <a href="/lego/sets" 
+                   class="text-gray-200 hover:underline menu <%= (page == '/lego/sets') ? 'active' : '' %>">
+                   View Collection
+                </a>
+            </li>
+
+            <!-- About -->
+            <li>
+                <a href="/about" 
+                   class="text-gray-200 hover:underline menu <%= (page == '/about') ? 'active' : '' %>">
+                   About
+                </a>
+            </li>
+
+            <!-- Theme Dropdown -->
+            <li class="relative">
+                <a href="#" class="text-gray-200 hover:underline cursor-pointer menu">
                     Theme
                 </a>
-                <ul class="dropdown-content absolute hidden text-gray-200 mt-2 p-2 space-y-2">
-                    <li><a href="/lego/sets?theme=technic" class="hover:underline ">Technic</a></li>
+                <ul class="dropdown-content absolute hidden bg-gray-800 text-gray-200 mt-2 p-2 space-y-2">
+                    <li><a href="/lego/sets?theme=technic" class="hover:underline">Technic</a></li>
                     <li><a href="/lego/sets?theme=star-wars" class="hover:underline">Marvel Avengers</a></li>
                     <li><a href="/lego/sets?theme=city" class="hover:underline">City</a></li>
                 </ul>
-            </div>
-        </div>
+            </li>
+
+            <!-- User-Specific Links -->
+            <% if (session.user) { %>
+                <!-- User History -->
+                <li>
+                    <a href="/userHistory" 
+                       class="text-gray-200 hover:underline menu <%= (page == '/userHistory') ? 'active' : '' %>">
+                       User History
+                    </a>
+                </li>
+
+                <!-- Logout -->
+                <li>
+                    <a href="/logout" 
+                       class="text-gray-200 hover:underline menu">
+                       Logout
+                    </a>
+                </li>
+            <% } else { %>
+                <!-- Login -->
+                <li>
+                    <a href="/login" 
+                       class="text-gray-200 hover:underline menu <%= (page == '/login') ? 'active' : '' %>">
+                       Login
+                    </a>
+                </li>
+
+                <!-- Register -->
+                <li>
+                    <a href="/register" 
+                       class="text-gray-200 hover:underline menu <%= (page == '/register') ? 'active' : '' %>">
+                       Register
+                    </a>
+                </li>
+            <% } %>
+        </ul>
     </div>
 </nav>

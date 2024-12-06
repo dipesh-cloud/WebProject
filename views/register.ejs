@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="/css/main.css" rel="stylesheet">
+</head>
+<body class="bg-gray-800">
+
+    <!-- Navbar -->
+    <%- include('partials/navbar', { page: '/register' }) %>
+
+    <div class="container mx-auto max-w-md mt-10 p-6 bg-white rounded-lg shadow-lg">
+        <h1 class="text-center text-2xl font-bold">Register</h1>
+
+        <form action="/register" method="POST">
+            <% if (errorMessage) { %>
+                <div class="alert alert-danger bg-red-500 text-white p-2 rounded">
+                    <%= errorMessage %>
+                </div>
+            <% } %>
+
+            <% if (successMessage) { %>
+                <div class="alert alert-success bg-green-500 text-white p-2 rounded">
+                    <%= successMessage %>
+                </div>
+            <% } %>
+
+            <div class="mt-4">
+                <label for="userName" class="block font-semibold">Username</label>
+                <input type="text" id="userName" name="userName" class="w-full p-2 border border-gray-300 rounded" placeholder="Enter your username" value="<%= userName %>" required>
+            </div>
+
+            <div class="mt-4">
+                <label for="email" class="block font-semibold">Email</label>
+                <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 rounded" placeholder="Enter your email" required>
+            </div>
+
+            <div class="mt-4">
+                <label for="password" class="block font-semibold">Password</label>
+                <input type="password" id="password" name="password" class="w-full p-2 border border-gray-300 rounded" placeholder="Enter your password" required>
+            </div>
+
+            <div class="mt-4">
+                <label for="password2" class="block font-semibold">Confirm Password</label>
+                <input type="password" id="password2" name="password2" class="w-full p-2 border border-gray-300 rounded" placeholder="Confirm your password" required>
+            </div>
+
+            <div class="mt-6">
+                <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">Register</button>
+            </div>
+        </form>
+
+        <div class="mt-4 text-center">
+            <p class="text-sm">Already have an account? <a href="/login" class="text-blue-500">Login here</a>.</p>
+        </div>
+    </div>
+
+</body>
+</html>
