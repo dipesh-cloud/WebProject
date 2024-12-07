@@ -2,8 +2,6 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-let User; // Defined during initialization
-
 // Schema definition for User
 const userSchema = new mongoose.Schema({
     userName: { type: String, unique: true, required: true },
@@ -15,41 +13,38 @@ const userSchema = new mongoose.Schema({
     }]
 });
 
-// Log the MongoDB URI for debugging
-console.log('MONGO_URI:', process.env.MONGO_URI);
+// Establish MongoDB connection (remove unnecessary createConnection)
+mongoose.connect(process.env.MONGO, {})
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Error connecting to MongoDB:", err));
 
-// Check if MONGO_URI is loaded
-if (!process.env.MONGO_URI) {
-  console.error('Error: MONGO_URI is not defined in the environment variables.');
-  process.exit(1); // Exit the app
-}
+// Create User model based on the userSchema directly from the main connection
+const User = mongoose.model('users', userSchema);
 
-
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => console.log("Connected to MongoDB"))
-.catch((err) => console.error("Error connecting to MongoDB:", err));
-
+// Function to register a new user
 function initialize() {
-    return new Promise((resolve, reject) => {
-        const db = mongoose.createConnection(process.env.MONGODB);
+    const mongoURI = process.env.MONGO_URI;
 
-        db.on('error', (err) => reject(err));
-        db.once('open', () => {
-            User = db.model("users", userSchema);
-            resolve();
+    if (!mongoURI) {
+        console.error("MongoDB connection string is not defined in environment variables.");
+        process.exit(1); // Exit the application if the connection string is missing
+    }
+
+    return mongoose.connect(mongoURI)
+        .then(() => {
+            console.log("Connected to MongoDB successfully.");
+        })
+        .catch((err) => {
+            console.error("Error connecting to MongoDB:", err);
+            process.exit(1); // Exit the application if connection fails
         });
-    });
 }
-
 function registerUser(userData) {
     return new Promise((resolve, reject) => {
         if (userData.password !== userData.password2) {
             reject("Passwords do not match");
         } else {
-            bcrypt.hash(userData.password, 10)
+            bcrypt.hash(userData.password, 10) // Hash the password
                 .then((hash) => {
                     userData.password = hash;
                     const newUser = new User(userData);
@@ -67,6 +62,7 @@ function registerUser(userData) {
     });
 }
 
+// Function to check user login credentials
 function checkUser(userData) {
     return new Promise((resolve, reject) => {
         User.findOne({ userName: userData.userName })
@@ -74,13 +70,13 @@ function checkUser(userData) {
                 if (!user) {
                     reject(`Unable to find user: ${userData.userName}`);
                 } else {
-                    return bcrypt.compare(userData.password, user.password)
+                    return bcrypt.compare(userData.password, user.password) // Compare the hashed password
                         .then((result) => {
                             if (!result) {
                                 reject(`Incorrect Password for user: ${userData.userName}`);
                             } else {
                                 if (user.loginHistory.length === 8) {
-                                    user.loginHistory.pop();
+                                    user.loginHistory.pop(); // Ensure history doesn't exceed 8 entries
                                 }
                                 user.loginHistory.unshift({
                                     dateTime: new Date(),
@@ -88,17 +84,16 @@ function checkUser(userData) {
                                 });
                                 return user.save();
                             }
-                        })
-                        .then(() => resolve(user))
-                        .catch((err) => reject(`There was an error verifying the user: ${err.message}`));
+                        });
                 }
             })
-            .catch(() => reject(`Unable to find user: ${userData.userName}`));
+            .then(() => resolve(user))
+            .catch((err) => reject(`There was an error verifying the user: ${err.message}`));
     });
 }
 
 module.exports = {
     initialize,
     registerUser,
-    checkUser
+    checkUser,
 };

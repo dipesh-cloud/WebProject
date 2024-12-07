@@ -17,6 +17,8 @@ const authData = require("./modules/auth-service");
 const clientSessions = require("client-sessions");
 require("dotenv").config();
 
+console.log("MongoDB URI:", process.env.MONGO_URI);
+
 const app = express();
 const PORT = process.env.PORT || 3010;
 
@@ -52,17 +54,17 @@ function ensureLogin(req, res, next) {
 }
 
 // Initialize Data Sources
-legoData
-    .initialize()
-    .then(authData.initialize)
-    .then(() => {
+async function initializeServer() {
+    try {
+        await legoData.initialize();
+        await authData.initialize();
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
         });
-    })
-    .catch((err) => {
+    } catch (err) {
         console.error(`Failed to initialize: ${err.message}`);
-    });
+    }
+}
 
 // Routes
 // Login
@@ -70,21 +72,19 @@ app.get("/login", (req, res) => {
     res.render("login", { errorMessage: null, userName: null });
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
     req.body.userAgent = req.get("User-Agent");
-    authData
-        .checkUser(req.body)
-        .then((user) => {
-            req.session.user = {
-                userName: user.userName,
-                email: user.email,
-                loginHistory: user.loginHistory,
-            };
-            res.redirect("/lego/sets");
-        })
-        .catch((err) => {
-            res.render("login", { errorMessage: err, userName: req.body.userName });
-        });
+    try {
+        const user = await authData.checkUser(req.body);
+        req.session.user = {
+            userName: user.userName,
+            email: user.email,
+            loginHistory: user.loginHistory,
+        };
+        res.redirect("/lego/sets");
+    } catch (err) {
+        res.render("login", { errorMessage: err, userName: req.body.userName });
+    }
 });
 
 // Logout
@@ -98,23 +98,21 @@ app.get("/register", (req, res) => {
     res.render("register", { errorMessage: null, successMessage: null, userName: null });
 });
 
-app.post("/register", (req, res) => {
-    authData
-        .registerUser(req.body)
-        .then(() => {
-            res.render("register", {
-                successMessage: "User created successfully!",
-                errorMessage: null,
-                userName: null,
-            });
-        })
-        .catch((err) => {
-            res.render("register", {
-                errorMessage: err,
-                successMessage: null,
-                userName: req.body.userName,
-            });
+app.post("/register", async (req, res) => {
+    try {
+        await authData.registerUser(req.body);
+        res.render("register", {
+            successMessage: "User created successfully!",
+            errorMessage: null,
+            userName: null,
         });
+    } catch (err) {
+        res.render("register", {
+            errorMessage: err,
+            successMessage: null,
+            userName: req.body.userName,
+        });
+    }
 });
 
 // User History
@@ -122,17 +120,15 @@ app.get("/userHistory", ensureLogin, (req, res) => {
     res.render("userHistory");
 });
 
+// Home Route
 app.get("/", (req, res) => {
-    res.render("home", { page: "/home" }); // Render the home.ejs page
+    res.render("home", { page: "/home" });
 });
 
-
-
-// About Page Route
+// About Page
 app.get("/about", (req, res) => {
     res.render("about", { page: "/about" });
 });
-
 
 // Lego Sets
 app.get("/lego/sets", ensureLogin, async (req, res) => {
@@ -176,8 +172,8 @@ app.use((req, res) => {
     res.status(404).render("404", { message: "Page not found" });
 });
 
-
-
+// Initialize the server
+initializeServer();
 
 
 
